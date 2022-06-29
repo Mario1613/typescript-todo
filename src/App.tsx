@@ -3,6 +3,7 @@ import { TodoForm } from './components/TodoForm';
 import './App.css';
 import TodoList from './components/TodoList';
 
+
 function App() {
   const [todos, setTodos] = useState<Array<Todo>>([])
   const addTodo: AddTodo = newTodo =>{
@@ -22,12 +23,23 @@ function App() {
     setTodos(updateTodos);
   }
 
+  const removeTodo : RemoveTodo = todoToRemove =>{
+    let updatedTodos: Array<Todo> = todos.filter(todo => todo.text != todoToRemove.text);
+    setTodos(updatedTodos);
+  }
 
+  const editTodo: EditTodo = todoToEdit =>{
+    let todoUpdateIndex: number = todos.findIndex(todo =>todo.text ==todoToEdit.text);
+
+  }
   return (
     <div className="todo-app">
       <h1>hello world</h1>
       <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} toggleComplete={toggleComplete}/>
+      <TodoList todos={todos} 
+      toggleComplete={toggleComplete} 
+      onRemoveTodo={removeTodo} 
+      editTodo={editTodo}/>
     </div>
   );
 }
